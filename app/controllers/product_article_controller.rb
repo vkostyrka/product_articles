@@ -34,6 +34,21 @@ class ProductArticleController < ApplicationController
     end
   end
 
+  def add_related
+    params = related_params
+    article = ProductArticle.find_by(sku: params['article_sku'])
+    render json: { success: false } unless article
+    related_articles = params['related_sku'].map { |item| ProductArticle.find_by(sku: item) }
+    if article && related_articles.all?
+      related_articles.each do |item|
+        article.related_articles.push(item)
+      end
+      render json: { success: true }
+    else
+      render json: { success: false }
+    end
+  end
+
   def create_params
     params.permit(:product_sku,
                   :product_name,
@@ -43,5 +58,9 @@ class ProductArticleController < ApplicationController
                   :price,
                   photos: [:url],
                   sizes: %i[size_sku name available])
+  end
+
+  def related_params
+    params.permit(:article_sku, related_sku: [])
   end
 end
