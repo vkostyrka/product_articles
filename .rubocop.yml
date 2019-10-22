@@ -1,0 +1,25 @@
+AllCops:
+  Excludes:
+    - db/schema.rb
+    - node_modules/node-sass/src/libsass/contrib/libsass.spec
+    - node_modules/node-sass/src/libsass/extconf.rb
+    - bin/yarn
+    - bin/bundle
+
+Rails:
+  Enabled: true
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Metrics/LineLength:
+  Max: 120
+Metrics/MethodLength:
+  Max: 30
+Metrics/AbcSize:
+  Max: 35
+Metrics/BlockLength:
+  Exclude:
+    - "**/*_spec.rb"
+    - "db/schema.rb"
+    - "config/initializers/rails_admin.rb"
